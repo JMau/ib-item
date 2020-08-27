@@ -1,0 +1,78 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="ib-item">
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+        padding: 0px;
+        margin: 0px;
+        @apply --ib-item;
+      }
+      .item-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        background-color: white;
+        @apply --ib-item-container;
+      }
+      .content {
+        flex: var(--ib-item-content-width, 80%);
+        word-wrap: break-word;
+        overflow: hidden;
+        padding: 1rem 0.8rem;
+        @apply --ib-item-content;
+      }
+      .sufix {
+        flex: 20%;
+        padding: 1rem 0.8rem;
+        @apply --ib-item-sufix;
+      }
+      ::slotted(*) {
+        margin: 0;
+      }
+      ::slotted([slot="content"]) {
+        text-align: justify;
+        font-size: 1rem;
+      }
+      ::slotted([slot="sufix"]) {
+        text-align: right;
+      }
+
+    </style>
+    <div class="item-container">
+      <div class="content">
+        <slot name="content"></slot>
+      </div>
+      <div class="sufix">
+        <slot name="sufix"></slot>
+      </div>
+    </div>
+  </template>
+
+
+  <script>
+    /**
+     * `ib-item`
+     * Componente ib-ite,
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class IbItem extends Polymer.Element {
+      static get is() { return 'ib-item'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'ib-item'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(IbItem.is, IbItem);
+  </script>
+</dom-module>
