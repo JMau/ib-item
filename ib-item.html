@@ -12,7 +12,6 @@
       }
       .item-container {
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
         background-color: white;
         @apply --ib-item-container;
@@ -35,9 +34,11 @@
       ::slotted([slot="content"]) {
         text-align: justify;
         font-size: 1rem;
+        @apply --ib-ite-slot-content;
       }
       ::slotted([slot="sufix"]) {
         text-align: right;
+        @apply --ib-ite-slot-sufix;
       }
 
     </style>
@@ -46,7 +47,7 @@
         <slot name="content"></slot>
       </div>
       <div class="sufix">
-        <slot name="sufix"></slot>
+        <slot name="sufix" on-click="handleClick"></slot>
       </div>
     </div>
   </template>
@@ -65,12 +66,24 @@
       static get is() { return 'ib-item'; }
       static get properties() {
         return {
-          prop1: {
-            type: String,
-            value: 'ib-item'
+          index: {
+            type: Number
           }
         };
       }
+
+      ready(){
+        super.ready();
+        // this.addEventListener('sufix-event', this._eliminar);
+      }
+
+      handleClick(e) {
+        this.dispatchEvent(new CustomEvent('sufix-event', {detail: {index: this.index}, bubbles: true, composed: true}));
+      }
+
+      // _eliminar(e){
+      //   console.log(e.detail);
+      // }
     }
 
     window.customElements.define(IbItem.is, IbItem);
